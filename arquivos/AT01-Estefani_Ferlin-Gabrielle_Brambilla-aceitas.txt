@@ -1,0 +1,5 @@
+{comentario}
+
+read(nota1) ; read (nota2);
+media := (nota1 + nota2) / 2;
+write(media)
