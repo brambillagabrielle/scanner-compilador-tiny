@@ -33,8 +33,8 @@ typedef struct
   char lexema[100];
 } Token;
 
-// Contador para garantir o tamanho de uma constante alfanumérica
-int CONT_CONSTANTE = 0;
+// Variável para verificar se há caracteres para descarte
+int descarte_caracteres = 0;
 
 // Variável para contar linhas verificadas pelo Scanner
 int linha = 1;
@@ -184,7 +184,6 @@ Token getProximoToken(FILE *arquivo)
         // Constantes alfanuméricas
 
         estado = 4;
-        CONT_CONSTANTE = 0;
         token.tipo = CONSTANTE_ALFANUMERICA;
       }
       else if (c == '+' || c == '-' || c == '*' || c == '/')
@@ -297,8 +296,10 @@ Token getProximoToken(FILE *arquivo)
       if (isLetra(c) || isDigito(c))
       {
 
-        if ((i + 1) == MAX_TOKEN)
+        if ((i + 1) == MAX_TOKEN) {
+          descarte_caracteres = 1;
           printf("ERRO NA LINHA: %d | IDENTIFICADOR passa do limite de caracteres. Caracteres descartados: ", linha);
+        }
 
         if (i > MAX_TOKEN - 1)
           printf("%c", c);
@@ -313,7 +314,9 @@ Token getProximoToken(FILE *arquivo)
       else
       {
 
-        printf("\n");
+        if (descarte_caracteres)
+          printf("\n");
+        
         ungetc(c, arquivo);
         token.lexema[i] = '\0';
 
@@ -332,8 +335,10 @@ Token getProximoToken(FILE *arquivo)
       if (isDigito(c))
       {
 
-        if ((i + 1) == MAX_TOKEN)
+        if ((i + 1) == MAX_TOKEN) {
+          descarte_caracteres = 1;
           printf("ERRO NA LINHA: %d | CONSTANTE_NUMERICA passa do limite de caracteres. Caracteres descartados: ", linha);
+        }
 
         if (i > MAX_TOKEN - 1)
           printf("%c", c);
@@ -347,8 +352,9 @@ Token getProximoToken(FILE *arquivo)
       }
       else
       {
-
-        printf("\n");
+        if (descarte_caracteres)
+          printf("\n");
+          
         ungetc(c, arquivo);
         token.lexema[i] = '\0';
         return token;
