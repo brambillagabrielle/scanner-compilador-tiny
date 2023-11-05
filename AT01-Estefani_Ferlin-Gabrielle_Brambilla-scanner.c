@@ -5,7 +5,7 @@
 #define MAX_TOKEN 20
 
 // Nome do arquivo com a entrada de teste que vai ser varrida
-#define NOME_ARQUIVO "Arquivos Texto/AT01-Estefani_Ferlin-Gabrielle_Brambilla-aceitas.txt"
+#define NOME_ARQUIVO "arquivos/AT01-Estefani_Ferlin-Gabrielle_Brambilla-aceitas.txt"
 
 // Definição dos tipos de Tokens
 typedef enum
@@ -37,7 +37,7 @@ typedef struct
 int CONT_CONSTANTE = 0;
 
 // Variável para contar linhas verificadas pelo Scanner
-int novaLinha = 1;
+int linha = 1;
 
 // Função que verifica se um caractere é uma letra do alfabeto (maiúscula ou minúscula)
 int isLetra(char c);
@@ -70,31 +70,31 @@ int main(int argc, char *argv[])
   {
     // Cada valor corresponde à um tipo de Token
     if (token.tipo == 0)
-      printf("Linha: %d | Tipo do Token: COMENTARIO | Cadeia: %s\n", novaLinha, token.lexema);
+      printf("Linha: %d | Tipo do Token: COMENTARIO | Cadeia: %s\n", linha, token.lexema);
     else if (token.tipo == 1)
-      printf("Linha: %d | Tipo do Token: PALAVRAS_RESERVADAS | Cadeia: %s\n", novaLinha, token.lexema);
+      printf("Linha: %d | Tipo do Token: PALAVRAS_RESERVADAS | Cadeia: %s\n", linha, token.lexema);
     else if (token.tipo == 2)
-      printf("Linha: %d | Tipo do Token: IDENTIFICADOR | Cadeia: %s\n", novaLinha, token.lexema);
+      printf("Linha: %d | Tipo do Token: IDENTIFICADOR | Cadeia: %s\n", linha, token.lexema);
     else if (token.tipo == 3)
-      printf("Linha: %d | Tipo do Token: CONSTANTE_NUMERICA | Cadeia: %s\n", novaLinha, token.lexema);
+      printf("Linha: %d | Tipo do Token: CONSTANTE_NUMERICA | Cadeia: %s\n", linha, token.lexema);
     else if (token.tipo == 4)
-      printf("Linha: %d | Tipo do Token: CONSTANTE_ALFANUMERICA | Cadeia: \"%s\"\n", novaLinha, token.lexema);
+      printf("Linha: %d | Tipo do Token: CONSTANTE_ALFANUMERICA | Cadeia: \"%s\"\n", linha, token.lexema);
     else if (token.tipo == 5)
-      printf("Linha: %d | Tipo do Token: OPERADORES_ARITMETICOS | Cadeia: %s\n", novaLinha, token.lexema);
+      printf("Linha: %d | Tipo do Token: OPERADORES_ARITMETICOS | Cadeia: %s\n", linha, token.lexema);
     else if (token.tipo == 6)
-      printf("Linha: %d | Tipo do Token: OPERADORES_COMPARACAO | Cadeia: %s\n", novaLinha, token.lexema);
+      printf("Linha: %d | Tipo do Token: OPERADORES_COMPARACAO | Cadeia: %s\n", linha, token.lexema);
     else if (token.tipo == 7)
-      printf("Linha: %d | Tipo do Token: ABRE_PARENTESES | Cadeia: %s\n", novaLinha, token.lexema);
+      printf("Linha: %d | Tipo do Token: ABRE_PARENTESES | Cadeia: %s\n", linha, token.lexema);
     else if (token.tipo == 8)
-      printf("Linha: %d | Tipo do Token: FECHA_PARENTESES | Cadeia: %s\n", novaLinha, token.lexema);
+      printf("Linha: %d | Tipo do Token: FECHA_PARENTESES | Cadeia: %s\n", linha, token.lexema);
     else if (token.tipo == 9)
-      printf("Linha: %d | Tipo do Token: ATRIBUICAO | Cadeia: %s\n", novaLinha, token.lexema);
+      printf("Linha: %d | Tipo do Token: ATRIBUICAO | Cadeia: %s\n", linha, token.lexema);
     else if (token.tipo == 10)
-      printf("Linha: %d | Tipo do Token: DELIMITADOR | Cadeia: %s\n", novaLinha, token.lexema);
+      printf("Linha: %d | Tipo do Token: DELIMITADOR | Cadeia: %s\n", linha, token.lexema);
     else if (token.tipo == 11)
-      printf("Linha: %d | Tipo do Token: ESPACOS | Cadeia: %s\n", novaLinha, token.lexema);
+      printf("Linha: %d | Tipo do Token: ESPACOS | Cadeia: %s\n", linha, token.lexema);
     else if (token.tipo == 12)
-      printf("Linha: %d | Tipo do Token: NAO_RECONHECIDO | Cadeia: %s\n", novaLinha, token.lexema);
+      printf("Linha: %d | Tipo do Token: NAO_RECONHECIDO | Cadeia: %s\n", linha, token.lexema);
   }
 
   fclose(arquivo);
@@ -102,7 +102,8 @@ int main(int argc, char *argv[])
 }
 
 // Função que verifica por palavras reservadas da linguagem TINY a partir de uma cadeia
-int isPalavraReservada(const char *cadeia) {
+int isPalavraReservada(const char *cadeia)
+{
 
     const char *palavrasReservadas[] = {"if", "then", "else", "end", "repeat", "until", "read", "write"};
     
@@ -144,6 +145,9 @@ Token getProximoToken(FILE *arquivo)
   while (c != EOF)
   {
     c = fgetc(arquivo);
+
+    if (c == '\n')
+      linha++;
 
     switch (estado)
     {
@@ -207,24 +211,6 @@ Token getProximoToken(FILE *arquivo)
         token.tipo = DELIMITADOR;
         token.lexema[i++] = c;
       }
-      else if (c == '(')
-      {
-        // Abre parenteses
-
-        token.tipo = ABRE_PARENTESES;
-        token.lexema[i++] = c;
-        token.lexema[i] = '\0';
-        return token;
-      }
-      else if (c == ')')
-      {
-        // Fecha parenteses
-
-        token.tipo = FECHA_PARENTESES;
-        token.lexema[i++] = c;
-        token.lexema[i] = '\0';
-        return token;
-      }
       else if (c == ':')
       {
         // Atribuição
@@ -234,14 +220,13 @@ Token getProximoToken(FILE *arquivo)
       }
       else if (c == ' ' || c == '\n' || c == '\t')
       {
-        // Espaço em branco ou tabulação
+        // Espaço em branco, nova linha ou tabulação
 
         estado = 9;
         token.tipo = ESPACOS;
 
         if (c == '\n')
         {
-          novaLinha += 1;
           token.lexema[i++] = '\\';
           token.lexema[i++] = 'n';
           token.lexema[i] = '\0';
@@ -259,6 +244,22 @@ Token getProximoToken(FILE *arquivo)
           token.lexema[i++] = '"';
           token.lexema[i] = '\0';
         }
+      }
+      else if (c == '(')
+      {
+        // Abre parenteses
+
+        estado = 10;
+        token.tipo = ABRE_PARENTESES;
+        token.lexema[i++] = c;
+      }
+      else if (c == ')')
+      {
+        // Fecha parenteses
+
+        estado = 11;
+        token.tipo = FECHA_PARENTESES;
+        token.lexema[i++] = c;
       }
       else if (c == EOF)
       {
@@ -297,7 +298,7 @@ Token getProximoToken(FILE *arquivo)
       {
 
         if ((i + 1) == MAX_TOKEN)
-          printf("ERRO NA LINHA: %d | IDENTIFICADOR passa do limite de caracteres. Caracteres descartados: ", novaLinha);
+          printf("ERRO NA LINHA: %d | IDENTIFICADOR passa do limite de caracteres. Caracteres descartados: ", linha);
 
         if (i > MAX_TOKEN - 1)
           printf("%c", c);
@@ -332,7 +333,7 @@ Token getProximoToken(FILE *arquivo)
       {
 
         if ((i + 1) == MAX_TOKEN)
-          printf("ERRO NA LINHA: %d | CONSTANTE_NUMERICA passa do limite de caracteres. Caracteres descartados: ", novaLinha);
+          printf("ERRO NA LINHA: %d | CONSTANTE_NUMERICA passa do limite de caracteres. Caracteres descartados: ", linha);
 
         if (i > MAX_TOKEN - 1)
           printf("%c", c);
@@ -362,8 +363,7 @@ Token getProximoToken(FILE *arquivo)
         token.lexema[i] = '\0';
         return token;
       }
-      else
-        token.lexema[i++] = c;
+      token.lexema[i++] = c;
 
       break;
 
@@ -394,10 +394,8 @@ Token getProximoToken(FILE *arquivo)
       if (c == '=')
       {
 
-        estado = 0;
         token.tipo = ATRIBUICAO;
-        token.lexema[i] = c;
-        i++;
+        token.lexema[i++] = c;
         token.lexema[i] = '\0';
         return token;
       }
@@ -408,6 +406,8 @@ Token getProximoToken(FILE *arquivo)
       }
 
     case 9: // Estado que reconhece espaço em branco
+    case 10: // Estado que reconhece abre parenteses
+    case 11: // Estado que reconhece fecha parenteses
 
       token.lexema[i] = '\0';
       ungetc(c, arquivo);

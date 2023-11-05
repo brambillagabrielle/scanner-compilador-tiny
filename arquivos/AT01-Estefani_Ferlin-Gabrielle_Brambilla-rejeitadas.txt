@@ -1,4 +1,5 @@
 # comentario
 id_com_underline
-identificadorcomumnomemaiorqueopermitido
-x := 12345678901234567890
+identificadorcomumnomemaiorqueopermitido := 5}
+x := 1234567890123456789087878
+y : 10
