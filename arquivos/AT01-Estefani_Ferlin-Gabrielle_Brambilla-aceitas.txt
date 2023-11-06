@@ -1,5 +1,9 @@
-{comentario}
-
-read(nota1) ; read (nota2);
+{calculo de media}
+read(nota1) ; read(nota2);
 media := (nota1 + nota2) / 2;
-write(media)
+write(media);
+if media >= 6 then 
+     write "Aprovado";
+else 
+     write "Reprovado"; 
+end
