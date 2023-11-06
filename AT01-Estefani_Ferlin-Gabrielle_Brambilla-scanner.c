@@ -68,33 +68,32 @@ int main(int argc, char *argv[])
   // Looping que varre todo o arquivo lido
   while ((token = getProximoToken(arquivo)).tipo != TOKEN_EOF)
   {
-    // Cada valor corresponde à um tipo de Token
     if (token.tipo == 0)
-      printf("Linha: %d | Tipo do Token: COMENTARIO | Cadeia: %s\n", linha, token.lexema);
+      printf("Linha: %d | Tipo do Token: COMENTARIO \t\t\t| Cadeia: %s\n", linha, token.lexema);
     else if (token.tipo == 1)
-      printf("Linha: %d | Tipo do Token: PALAVRAS_RESERVADAS | Cadeia: %s\n", linha, token.lexema);
+      printf("Linha: %d | Tipo do Token: PALAVRAS_RESERVADAS \t\t| Cadeia: %s\n", linha, token.lexema);
     else if (token.tipo == 2)
-      printf("Linha: %d | Tipo do Token: IDENTIFICADOR | Cadeia: %s\n", linha, token.lexema);
+      printf("Linha: %d | Tipo do Token: IDENTIFICADOR \t\t| Cadeia: %s\n", linha, token.lexema);
     else if (token.tipo == 3)
-      printf("Linha: %d | Tipo do Token: CONSTANTE_NUMERICA | Cadeia: %s\n", linha, token.lexema);
+      printf("Linha: %d | Tipo do Token: CONSTANTE_NUMERICA \t\t| Cadeia: %s\n", linha, token.lexema);
     else if (token.tipo == 4)
-      printf("Linha: %d | Tipo do Token: CONSTANTE_ALFANUMERICA | Cadeia: \"%s\"\n", linha, token.lexema);
+      printf("Linha: %d | Tipo do Token: CONSTANTE_ALFANUMERICA \t| Cadeia: \"%s\"\n", linha, token.lexema);
     else if (token.tipo == 5)
-      printf("Linha: %d | Tipo do Token: OPERADORES_ARITMETICOS | Cadeia: %s\n", linha, token.lexema);
+      printf("Linha: %d | Tipo do Token: OPERADORES_ARITMETICOS \t| Cadeia: %s\n", linha, token.lexema);
     else if (token.tipo == 6)
-      printf("Linha: %d | Tipo do Token: OPERADORES_COMPARACAO | Cadeia: %s\n", linha, token.lexema);
+      printf("Linha: %d | Tipo do Token: OPERADORES_COMPARACAO \t| Cadeia: %s\n", linha, token.lexema);
     else if (token.tipo == 7)
-      printf("Linha: %d | Tipo do Token: ABRE_PARENTESES | Cadeia: %s\n", linha, token.lexema);
+      printf("Linha: %d | Tipo do Token: ABRE_PARENTESES \t\t| Cadeia: %s\n", linha, token.lexema);
     else if (token.tipo == 8)
-      printf("Linha: %d | Tipo do Token: FECHA_PARENTESES | Cadeia: %s\n", linha, token.lexema);
+      printf("Linha: %d | Tipo do Token: FECHA_PARENTESES \t\t| Cadeia: %s\n", linha, token.lexema);
     else if (token.tipo == 9)
-      printf("Linha: %d | Tipo do Token: ATRIBUICAO | Cadeia: %s\n", linha, token.lexema);
+      printf("Linha: %d | Tipo do Token: ATRIBUICAO \t\t\t| Cadeia: %s\n", linha, token.lexema);
     else if (token.tipo == 10)
-      printf("Linha: %d | Tipo do Token: DELIMITADOR | Cadeia: %s\n", linha, token.lexema);
+      printf("Linha: %d | Tipo do Token: DELIMITADOR \t\t\t| Cadeia: %s\n", linha, token.lexema);
     else if (token.tipo == 11)
-      printf("Linha: %d | Tipo do Token: ESPACOS | Cadeia: %s\n", linha, token.lexema);
+      printf("Linha: %d | Tipo do Token: ESPACOS \t\t\t| Cadeia: %s\n", linha, token.lexema);
     else if (token.tipo == 12)
-      printf("Linha: %d | Tipo do Token: NAO_RECONHECIDO | Cadeia: %s\n", linha, token.lexema);
+      printf("Linha: %d | Tipo do Token: NAO_RECONHECIDO \t\t\t| Cadeia: %s\n", linha, token.lexema);
   }
 
   fclose(arquivo);
