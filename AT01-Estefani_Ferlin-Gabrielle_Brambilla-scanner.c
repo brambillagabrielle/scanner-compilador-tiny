@@ -1,6 +1,19 @@
 #include <stdio.h>
 #include <string.h>
 
+/*
+Instituto   INSTITUTO FEDERAL DE EDUCAÇÃO, CIÊNCIA E TECNOLOGIA SUL-RIO-GRANDENSE
+            Câmpus Passo Fundo
+Curso       Bacharelado de Ciência da Computação
+Disciplina  Compiladores
+Atividade   BCC-Cp-AT01  /  Atividade 01 - Scanner
+Discentes   Estéfani Ferlin
+            Gabrielle Brambilla
+Data        05/11/2023
+Resumo      Esse trabalho tem como objetivo implementar um analisador léxico (Scanner)
+            na linguagem C que identifique cadeias da linguagem TINY      
+*/
+
 // Tamanho Máximo do conteúdo de um Token
 #define MAX_TOKEN 20
 
