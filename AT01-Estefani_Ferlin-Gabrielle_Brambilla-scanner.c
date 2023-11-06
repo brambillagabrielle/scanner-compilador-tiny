@@ -153,13 +153,13 @@ Token getProximoToken(FILE *arquivo)
   {
     c = fgetc(arquivo);
 
-    if (c == '\n')
-      linha++;
-
     switch (estado)
     {
 
     case 0: // Estado inicial
+
+      if (c == '\n')
+        linha++;
 
       if (c == '{')
       {
