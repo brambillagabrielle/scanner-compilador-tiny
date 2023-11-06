@@ -101,21 +101,28 @@ int main(int argc, char *argv[])
   return 0;
 }
 
-// Função que verifica por palavras reservadas da linguagem TINY a partir de uma cadeia
+// Função que reconhece palavras reservadas da linguagem TINY a partir de uma cadeia
 int isPalavraReservada(const char *cadeia)
 {
 
-    const char *palavrasReservadas[] = {"if", "then", "else", "end", "repeat", "until", "read", "write"};
-    
-    int quantPalavrasReservadas = sizeof(palavrasReservadas) / sizeof(palavrasReservadas[0]);
-    for (int i = 0; i < quantPalavrasReservadas; i++) {
-
-        if (strcmp(cadeia, palavrasReservadas[i]) == 0) {
-            return 1;
-        }
-    }
-
-    return 0;
+  if (cadeia[0] == 'e' && cadeia[1] == 'n' && cadeia[2] == 'd' && cadeia[3] == '\0')
+    return 1; // end
+  else if (cadeia[0] == 'i' && cadeia[1] == 'f' && cadeia[2] == '\0')
+    return 1; // if
+  else if (cadeia[0] == 't' && cadeia[1] == 'h' && cadeia[2] == 'e' && cadeia[3] == 'n' && cadeia[4] == '\0')
+    return 1; // then
+  else if (cadeia[0] == 'r' && cadeia[1] == 'e' && cadeia[2] == 'p' && cadeia[3] == 'e' && cadeia[4] == 'a' && cadeia[5] == 't' && cadeia[6] == '\0')
+    return 1; // repeat
+  else if (cadeia[0] == 'e' && cadeia[1] == 'l' && cadeia[2] == 's' && cadeia[3] == 'e' && cadeia[4] == '\0')
+    return 1; // else
+  else if (cadeia[0] == 'r' && cadeia[1] == 'e' && cadeia[2] == 'a' && cadeia[3] == 'd' && cadeia[4] == '\0')
+    return 1; // read
+  else if (cadeia[0] == 'u' && cadeia[1] == 'n' && cadeia[2] == 't' && cadeia[3] == 'i' && cadeia[4] == 'l' && cadeia[5] == '\0')
+    return 1; // until
+  else if (cadeia[0] == 'w' && cadeia[1] == 'r' && cadeia[2] == 'i' && cadeia[3] == 't' && cadeia[4] == 'e' && cadeia[5] == '\0')
+    return 1; // write
+  
+  return 0;
 }
 
 int isLetra(char c)
